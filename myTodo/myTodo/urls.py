@@ -16,9 +16,9 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-import myTodo.views
+import task.views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', myTodo.views.index, name='index'),
+    url(r'^$', task.views.index, name='index'),
 ]
