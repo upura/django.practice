@@ -7,5 +7,5 @@ def index(request):
     # Get tasks
     tasks = list(Task.objects.all())
     #pdb.set_trace()
-    return TemplateResponse(request, 'myTodo/index.html',
+    return TemplateResponse(request, 'task/index.html',
                             {'tasks': tasks})
