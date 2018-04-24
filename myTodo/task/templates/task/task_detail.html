@@ -2,8 +2,8 @@
 
 {% block content %}
 
-<p>name</p>
-<p>text</p>
-<p>created_at</p>
+<p>Name: <input type="text" name="name_text" value="{{ task.name }}"></p>
+<p>Text: <input type="text" name="text_text" value="{{ task.text }}"></p>
+<p>Created_at: <input type="text" name="created_text" value="{{ task.created_at }}"></p>
 
 {% endblock %}
