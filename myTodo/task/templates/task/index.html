@@ -20,8 +20,5 @@
   </table>
 </ul>
 
-<form method="post">
-  {% csrf_token %}
-  <input type="submit" value="Add new task"/>
-</form>
+<input type="button" onclick="location.href='{% url 'task_new' %}'" value="Add new task">
 {% endblock %}
