@@ -3,9 +3,21 @@
 {% block content %}
 
 <ul>
-  {% for task in tasks %}
-    <li><a href="{% url 'task_detail' task.id %}">{{ task }}</a></li>
-  {% endfor %}
+  <table class="task_table">
+    {% for task in tasks %}
+    <tr>
+      <td>
+        <li><a href="{% url 'task_detail' task.id %}">{{ task }}</a></li>
+      </td>
+      <td>
+        <form method="post">
+          {% csrf_token %}
+          <input type="submit" value="Delete"/>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
 </ul>
 
 <form method="post">
