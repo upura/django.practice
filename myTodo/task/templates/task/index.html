@@ -8,4 +8,8 @@
   {% endfor %}
 </ul>
 
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" value="Add new task"/>
+</form>
 {% endblock %}

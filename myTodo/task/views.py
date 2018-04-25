@@ -10,6 +10,10 @@ import pdb
 
 def index(request):
     tasks = list(Task.objects.all())
+
+    if request.method == 'POST':
+        return HttpResponseRedirect(reverse('task_new'))
+
     return TemplateResponse(request, 'task/index.html',
                             {'tasks': tasks})
 
@@ -29,3 +33,6 @@ def task_detail(request, task_id):
         #pdb.set_trace()
     return TemplateResponse(request, 'task/task_detail.html',
                             {'form': form, 'task': task})
+
+def task_new(request):
+    return TemplateResponse(request, 'task/task_new.html')
