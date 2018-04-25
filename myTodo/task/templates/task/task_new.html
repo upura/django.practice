@@ -2,6 +2,10 @@
 
 {% block content %}
 
-Add new task
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_ul }}
+  <input type="submit" value="Save"/>
+</form>
 
 {% endblock %}

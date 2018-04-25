@@ -30,9 +30,19 @@ def task_detail(request, task_id):
             return HttpResponseRedirect(reverse('index'))
     else:
         form = TaskEditForm(instance=task)
-        #pdb.set_trace()
+
     return TemplateResponse(request, 'task/task_detail.html',
                             {'form': form, 'task': task})
 
 def task_new(request):
-    return TemplateResponse(request, 'task/task_new.html')
+
+    if request.method == 'POST':
+        form = TaskEditForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('index'))
+    else:
+        form = TaskEditForm()
+
+    return TemplateResponse(request, 'task/task_new.html',
+                            {'form': form})
