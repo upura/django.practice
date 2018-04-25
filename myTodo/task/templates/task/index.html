@@ -10,9 +10,9 @@
         <li><a href="{% url 'task_detail' task.id %}">{{ task }}</a></li>
       </td>
       <td>
-        <form method="post">
+        <form method="post" action="{% url 'task_delete' task.id%}">
           {% csrf_token %}
-          <input type="submit" value="Delete"/>
+          <input type="submit" value="Delete">
         </form>
       </td>
     </tr>
@@ -20,5 +20,5 @@
   </table>
 </ul>
 
-<input type="button" onclick="location.href='{% url 'task_new' %}'" value="Add new task">
+<input type="submit" onclick="location.href='{% url 'task_new' %}'" value="Add new task">
 {% endblock %}

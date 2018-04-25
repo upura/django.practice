@@ -10,10 +10,6 @@ import pdb
 
 def index(request):
     tasks = list(Task.objects.all())
-
-    if request.method == 'POST':
-        return HttpResponseRedirect(reverse('task_new'))
-
     return TemplateResponse(request, 'task/index.html',
                             {'tasks': tasks})
 
@@ -46,3 +42,12 @@ def task_new(request):
 
     return TemplateResponse(request, 'task/task_new.html',
                             {'form': form})
+
+def task_delete(request, task_id):
+    if request.method == 'POST':
+        try:
+            Task.objects.get(id=task_id).delete()
+            return HttpResponseRedirect(reverse('index'))
+        except Task.DoesNotExist:
+            raise Http404
+    return TemplateResponse(request, 'task/index.html')
