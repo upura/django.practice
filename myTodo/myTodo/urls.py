@@ -21,5 +21,5 @@ from api.urls import router
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include(router.urls)),
-#    url(r'', include('task.urls')),
+    url(r'', include('task.urls')),
 ]
