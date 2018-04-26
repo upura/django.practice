@@ -1,17 +1,17 @@
-from django.shortcuts import render
 from django.template.response import TemplateResponse
 from django.http import Http404
 from task.models import Task
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from task.forms import TaskEditForm
+# from django.shortcuts import render
 
-import pdb
 
 def index(request):
     tasks = list(Task.objects.all())
     return TemplateResponse(request, 'task/index.html',
                             {'tasks': tasks})
+
 
 def task_detail(request, task_id):
     try:
@@ -30,6 +30,7 @@ def task_detail(request, task_id):
     return TemplateResponse(request, 'task/task_detail.html',
                             {'form': form, 'task': task})
 
+
 def task_new(request):
 
     if request.method == 'POST':
@@ -42,6 +43,7 @@ def task_new(request):
 
     return TemplateResponse(request, 'task/task_new.html',
                             {'form': form})
+
 
 def task_delete(request, task_id):
     if request.method == 'POST':
