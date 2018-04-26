@@ -21,4 +21,5 @@ urlpatterns = [
     # url(r'^admin/', admin.site.urls),
     url(r'^api/', include(router.urls)),
     url(r'', include('task.urls')),
+    url(r'^spa/', include('frontend.urls')),
 ]
