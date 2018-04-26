@@ -1,9 +1,13 @@
 from django.conf.urls import url
-import task.views
+from rest_framework import routers
 
+from . import views
+
+
+app_name = 'task'
 urlpatterns = [
-    url(r'^task/new/$', task.views.task_new, name='task_new'),
-    url(r'^$', task.views.index, name='index'),
-    url(r'^task/(?P<task_id>[0-9]+)$', task.views.task_detail, name='task_detail'),
-    url(r'^task/(?P<task_id>[0-9]+)/delete$', task.views.task_delete, name='task_delete'),
+    url(r'^$', views.task_list, name='list'),
+    url(r'^task/(?P<task_id>[0-9]+)$', views.task_detail, name='detail'),
+    url(r'^task/new$', views.task_new, name='new'),
+    url(r'^task/(?P<task_id>[0-9]+)/delete$', views.task_delete, name='delete'),
 ]

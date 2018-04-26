@@ -1,12 +1,10 @@
 from django import forms
-from task.models import Task
+
+from .models import Task
 
 
-class TaskEditForm(forms.ModelForm):
+class TaskForm(forms.ModelForm):
+
     class Meta:
         model = Task
-        fields = (
-            'name',
-            'text',
-            'created_at'
-        )
+        fields = ('name', 'text', 'created_at',)

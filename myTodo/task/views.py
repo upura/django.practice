@@ -1,55 +1,44 @@
-from django.template.response import TemplateResponse
 from django.http import Http404
-from task.models import Task
-from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
-from task.forms import TaskEditForm
-# from django.shortcuts import render
+from django.shortcuts import render, redirect
 
+from .models import Task
+from .forms import TaskForm
 
-def index(request):
-    tasks = list(Task.objects.all())
-    return TemplateResponse(request, 'task/index.html',
-                            {'tasks': tasks})
+def task_list(request):
+    tasks = Task.objects.all().order_by('created_at')
+    return render(request, 'task/task_list.html', {'tasks': tasks})
 
 
 def task_detail(request, task_id):
-    try:
-        task = Task.objects.get(id=task_id)
-    except Task.DoesNotExist:
-        raise Http404
+    task = Task.objects.get(pk=task_id)
 
     if request.method == 'POST':
-        form = TaskEditForm(request.POST, instance=task)
+        form = TaskForm(data=request.POST, instance=task)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('index'))
+            return redirect('task:list')
     else:
-        form = TaskEditForm(instance=task)
-
-    return TemplateResponse(request, 'task/task_detail.html',
-                            {'form': form, 'task': task})
+        form = TaskForm(instance=task)
+    return render(request, 'task/task_detail.html', {'form': form})
 
 
 def task_new(request):
 
-    if request.method == 'POST':
-        form = TaskEditForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('index'))
+    if request.method == 'GET':
+        form = TaskForm()
+        return render(request, 'task/task_detail.html', {'form': form})
     else:
-        form = TaskEditForm()
-
-    return TemplateResponse(request, 'task/task_new.html',
-                            {'form': form})
+        form = TaskForm(request.POST)
+        form.is_valid()
+        form.save()
+        return  redirect('task:list')
 
 
 def task_delete(request, task_id):
+
     if request.method == 'POST':
         try:
-            Task.objects.get(id=task_id).delete()
-            return HttpResponseRedirect(reverse('index'))
+            Task.objects.get(pk=task_id).delete()
+            return redirect('task:list')
         except Task.DoesNotExist:
             raise Http404
-    return TemplateResponse(request, 'task/index.html')
